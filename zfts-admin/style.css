@@ -1,0 +1,258 @@
+/* ---------- Base ---------- */
+body{font-family:Arial,sans-serif;background:#f8f9fa;color:#333;margin:0;}
+h1{text-align:center;color:#1589ff;margin-top:1em;}
+.section{margin:1em auto;width:95%;max-width:1200px;background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);border-radius:8px;padding:1em;}
+#toolbar{text-align:center;margin:10px;}
+button{background:#1589ff;color:#fff;border:none;border-radius:4px;
+  padding:6px 10px;margin:2px;cursor:pointer;}
+button:hover{background:#106ecc;}
+table{width:100%;border-collapse:collapse;text-align:center;}
+th,td{border:1px solid #ddd;padding:8px;}
+th{background:#1589ff;color:#fff;}
+.tailLabel{font-weight:bold;font-size:1.05em;color:#1589ff;}
+.manageCell button{margin:3px 2px;}
+button.disabled,
+button:disabled {
+  background: #999 !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+#controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#topBar {
+  width: 100%;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.topBarInner {
+  margin: 0 auto;
+  width: 95%;
+  max-width: 1200px;   /* ✅ match your .section */
+  display: flex;
+  justify-content: center;  /* or flex-end if you want right aligned */
+  align-items: center;
+  gap: 10px;
+  padding: 1px 0;
+}
+
+body.dark #topBar {
+  background: #1a1a1a;
+  border-color: #333;
+}
+/* ---------- Config Editor Grid ---------- */
+.hidden {
+  display: none !important;
+}
+.configHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.configHeader h2 {
+  margin: 0;
+}
+
+.closeConfigBtn {
+  background: transparent;
+  color: #888;
+  font-size: 1.2em;
+  border: none;
+  cursor: pointer;
+}
+
+.closeConfigBtn:hover {
+  color: #ff4444;
+}
+
+
+#cfgTable{margin-top:12px;}
+.cfgRow{display:grid;grid-template-columns:30% 60% 10%;align-items:center;
+  gap:8px;border-bottom:1px solid #eee;padding:6px 0;}
+.cfgRow label{font-weight:bold;color:#1589ff;}
+.cfgRow input{width:100%;padding:4px 6px;border:1px solid #ccc;border-radius:4px;}
+.helperIcon{text-align:center;font-size:1.1em;color:gray;cursor:help;}
+.helperIcon:hover{color:#1589ff;}
+/* ---------- Full‑file Modal ---------- */
+#fullFileModal{position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,.65);display:flex;justify-content:center;align-items:center;z-index:4000;}
+#fullFileModal.hidden{display:none!important;}
+#fullFileContent{background:#fff;color:#000;max-width:900px;width:90%;max-height:80%;
+  border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.5);padding:10px;overflow:auto;}
+#fullFileContent pre{background:#111;color:#0f0;border:1px solid #555;padding:10px;overflow:auto;}
+/* ---------- Log Window ---------- */
+
+/* ---------- Floating Log Windows (classic style) ---------- */
+.reverseBtn {
+  background: #1589ff;
+  color: #fff;
+  border: none;
+  margin-right: 6px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.reverseBtn:hover { background: #106ecc; }
+
+.logWindow {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 60%;
+  min-width: 400px;
+  height: 400px;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,.4);
+  border: 1px solid #999;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  z-index: 2100;
+}
+.logHeader {
+  background: #1589ff;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.closeLog {
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.logSearch {
+  margin: 6px 10px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.logContent {
+  flex: 1;
+  margin: 0 10px 10px 10px;
+  background: #000;
+  color: #0f0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  overflow: auto;
+  font-family: monospace;
+  padding: 8px;
+  white-space: pre-wrap;
+  font-family: monospace;
+
+}
+.resizeHandle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background: #1589ff;
+  cursor: se-resize;
+  border-bottom-right-radius: 6px;
+}
+
+#loginBox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#loginBox.hidden {
+  display: none !important;
+}
+
+#loginInner {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  text-align: center;
+}
+
+
+#passwordSection input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#globalModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#globalModal.hidden {
+  display: none !important;
+}
+
+.modalInner {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  text-align: center;
+}
+
+body.dark .modalInner {
+  background: #1a1a1a;
+  color: #eee;
+}
+
+/* ---------- Dark Mode ---------- */
+body.dark .logWindow {
+  background: #1a1a1a;
+  color: #eee;
+  border-color: #333;
+}
+body.dark .logHeader {
+  background: #0d47a1;
+}
+body.dark .logContent {
+  background: #111;
+  border-color: #444;
+  color: #0f0;
+}
+body.dark .resizeHandle {
+  background: #0d47a1;
+}
+
+
+body.dark{background:#121212;color:#e0e0e0;}
+body.dark th,body.dark h1,body.dark h2{color:#66b3ff;}
+body.dark .section{background:#1a1a1a;box-shadow:0 0 10px rgba(0,0,0,.4);}
+body.dark table,body.dark td{border-color:#333;}
+body.dark th{background:#0d47a1;}
+body.dark button{background:#0d47a1;}
+body.dark button:hover{background:#1565c0;}
+
+body.dark #fullFileContent{background:#1a1a1a;color:#eee;}

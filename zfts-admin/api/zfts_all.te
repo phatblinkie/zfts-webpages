@@ -1,0 +1,18 @@
+module zfts_all 1.2;
+
+require {
+    type httpd_t;
+    type systemd_unit_file_t;
+    type syslogd_var_run_t;
+
+    class service { start stop status };
+    class file { open read getattr map };
+    class dir { search open read getattr };
+}
+
+# --- systemctl control ---
+allow httpd_t systemd_unit_file_t:service { start stop status };
+
+# --- journal access (FIXED: added map) ---
+allow httpd_t syslogd_var_run_t:dir { search open read getattr };
+allow httpd_t syslogd_var_run_t:file { open read getattr map };

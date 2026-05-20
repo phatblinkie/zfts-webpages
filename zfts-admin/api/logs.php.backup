@@ -1,0 +1,11 @@
+<?php
+$svc = preg_replace('/[^a-z0-9\-]/i','',$_GET['service'] ?? '');
+if (!preg_match('/^(zfts|zcompd)-(83|89|105|107)$/',$svc)) {
+  http_response_code(400);
+  echo "Invalid service";
+  exit;
+}
+
+$cmd = "journalctl -u ".escapeshellarg($svc.".service")." -n 60 --no-pager 2>&1";
+passthru($cmd);
+?>

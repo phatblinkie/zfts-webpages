@@ -1,0 +1,11 @@
+module zfts_journal 1.0;
+
+require {
+    type httpd_t;
+    type syslogd_var_run_t;
+    class file { open read getattr };
+    class dir { search open read getattr };
+}
+
+allow httpd_t syslogd_var_run_t:dir { search open read getattr };
+allow httpd_t syslogd_var_run_t:file { open read getattr };

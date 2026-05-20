@@ -1,0 +1,7 @@
+{
+    "admin_pass": "$2y$10$QuVt/jsEOQlqlpyeuDf0/OYfAe8Q2YY3vlJBRATRGMgOWCpFMf01m",
+    "login_attempts": 0,
+    "last_attempt": 0,
+    "login_max_attempts": 5,
+    "login_lockout_seconds": 30
+}

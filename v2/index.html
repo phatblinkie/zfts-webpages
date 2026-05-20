@@ -1,0 +1,263 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Dual Instance File Transfer Monitor</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f8f9fa;
+  color: #333;
+}
+h1 {
+  text-align: center;
+  color: #1589ff;
+  margin-top: 1em;
+}
+h2 {
+  color: #1589ff;
+  margin-top: 1.5em;
+  margin-left: 10px;
+}
+.section {
+  margin: 0 auto 3em;
+  width: 95%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1em;
+}
+#airControls, #groundControls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+#airHost {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 220px;
+}
+button {
+  background: #1589ff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background: #106ecc;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 6px;
+}
+th {
+  background: #1589ff;
+  color: #fff;
+}
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
+/* ---------- Dark Mode ---------- */
+body.dark {
+  background: #121212;
+  color: #e0e0e0;
+}
+body.dark h1,
+body.dark h2 {
+  color: #66b3ff;
+}
+body.dark .section {
+  background: #1a1a1a;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+body.dark table {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #333;
+}
+body.dark th {
+  background: #0d47a1;
+  color: #fff;
+  border-color: #333;
+}
+body.dark td {
+  background: #1e1e1e;
+  color: #d8d8d8;
+  border-color: #333;
+}
+body.dark tr:nth-child(even) td {
+  background: #252525;
+}
+body.dark tr:hover td {
+  background: #2f2f2f;
+}
+body.dark select {
+  background: #222;
+  color: #eee;
+  border: 1px solid #555;
+}
+body.dark button {
+  background: #0d47a1;
+  color: #fff;
+}
+body.dark button:hover {
+  background: #1565c0;
+}
+/* ---------- Health Indicator ---------- */
+#airHealth, #groundHealth {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+.health-idle { color: gray; }
+.health-connecting { color: #ffaa00; }
+.health-ok { color: #00cc66; }
+.health-fail { color: #ff4444; }
+
+/* ---------- Action Feedback Styles ---------- */
+button.sending,
+button.stopping,
+button.cancelling {
+  background-color: #ffa726;   /* amber highlight */
+  color: #fff;
+  font-weight: bold;
+  animation: pulse 1.2s infinite;
+}
+
+button.done {
+  background-color: #43a047;   /* success green */
+  color: #fff;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Disable look consistency */
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Poll dropdown visual */
+#airPoll, #groundPoll {
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+</style>
+</head>
+<body>
+<h1>Dual Instance File Transfer Monitor</h1>
+
+<div id="userInfo" style="text-align:center;margin-bottom:1em;font-size:0.95rem;">
+  Logged in as: <span id="username" style="font-weight:bold;">(loading…)</span>
+  <span id="userdn" style="font-size:0.9em;color:#666;"></span>
+</div>
+
+<div style="text-align:center;margin-bottom:10px;">
+  <button id="themeToggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+</div>
+
+
+<!-- ===== Ground Receiver ===== -->
+<div class="section">
+  <h2>Ground Receiver</h2>
+  <div id="groundControls" style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+    <span id="groundStatus">Ready</span>
+    <span id="groundHealth" class="health-ok">🟢 Active</span>
+    <span id="groundLatency" style="margin-left:12px;font-weight:bold;">Ping: N/A</span>
+
+    <!-- 🆕 Poll frequency selector -->
+    <label for="groundPoll" style="margin-left:15px;">Update every</label>
+    <select id="groundPoll">
+      <option value="1">1s</option>
+      <option value="2">2s</option>
+      <option value="3">3s</option>
+      <option value="4">4s</option>
+      <option value="5" selected>5s</option>
+      <option value="6">6s</option>
+      <option value="7">7s</option>
+      <option value="8">8s</option>
+      <option value="9">9s</option>
+      <option value="10">10s</option>
+    </select>
+  </div>
+  <table id="groundTable"></table>
+</div>
+
+<!-- ===== Air Receiver ===== -->
+<div class="section">
+  <h2>Air Receiver</h2>
+  <div id="airControls">
+    <label><strong>Host/IP:</strong></label>
+    <input id="airHost" type="text" placeholder="e.g., 192.168.10.213">
+    <label style="margin-left:8px;"><strong>Port:</strong></label>
+    <input id="airPort" type="number" min="1" max="65535" value="19012" style="width:80px;">
+    <button id="setAirBtn" onclick="setAirHost()">Connect</button>
+    <span id="airStatus">Idle</span>
+    <span id="airHealth" class="health-idle">🟦 Idle</span>
+
+    <!-- 🆕 Poll frequency selector -->
+    <label for="airPoll" style="margin-left:15px;">Update every</label>
+    <select id="airPoll">
+      <option value="1">1s</option>
+      <option value="2">2s</option>
+      <option value="3">3s</option>
+      <option value="4">4s</option>
+      <option value="5" selected>5s</option>
+      <option value="6">6s</option>
+      <option value="7">7s</option>
+      <option value="8">8s</option>
+      <option value="9">9s</option>
+      <option value="10">10s</option>
+    </select>
+  </div>
+  <table id="airTable"></table>
+</div>
+
+<script src="stats.js"></script>
+<script>
+/* ---------- Dark Mode Toggle ---------- */
+function setTheme(dark){
+  const btn=document.getElementById('themeToggle');
+  if(dark){
+    document.body.classList.add('dark');
+    localStorage.setItem('theme','dark');
+    btn.textContent='☀️ Light Mode';
+  }else{
+    document.body.classList.remove('dark');
+    localStorage.setItem('theme','light');
+    btn.textContent='🌙 Dark Mode';
+  }
+}
+function toggleTheme(){
+  setTheme(!document.body.classList.contains('dark'));
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const savedTheme=localStorage.getItem('theme');
+  setTheme(savedTheme==='dark');
+  const saved=localStorage.getItem('airHost');
+  if(saved) document.getElementById('airHost').value=saved;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+module zfts_systemd 1.0;
+
+require {
+    type httpd_t;
+    type systemd_unit_file_t;
+    class service { start stop status };
+}
+
+allow httpd_t systemd_unit_file_t:service { start stop status };

@@ -1,0 +1,214 @@
+/* css */
+body {
+	font-size: 10pt;
+	font-family: Arial, sans-serif;
+	color: #404040;
+}
+
+h1, h2 {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+
+h1 {
+	font-weight: normal;
+}
+
+h2 {
+	font-size: 15pt;
+}
+
+hr {
+	color: #1589ff;
+}
+
+table {
+	margin-bottom: 1em;
+	border-collapse: collapse;
+}
+
+th, td {
+	white-space: nowrap;
+	border: 1px solid #ddd;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+th {
+	color: white;
+	background-color: #1589ff;
+	padding: 0.2em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+form {
+	margin-bottom: 1em;
+}
+
+legend {
+	font-size: 15pt;
+}
+
+.hidden {
+	display: none;
+}
+
+.noborder {
+	border: none;
+}
+
+table.form tr {
+	background-color: #f2f2f2;
+}
+
+table.fancy tr:nth-child(even) {
+	background-color: #f2f2f2
+}
+
+table.fancy tr.selected {
+	background-color: #cce6ff;
+}
+
+table.fancy2 {
+	margin-bottom: 0em;
+}
+
+fieldset.fancy2 {
+	padding-bottom: 0em;
+	margin-bottom: 0em;
+}
+
+form.fancy2 {
+	padding-bottom: 0em;
+	margin-bottom: .5em;
+}
+
+.fancytable {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.fancytable td, .fancytable th {
+	border: 1px solid #ddd;
+	text-align: center;
+	padding: 8px;
+	font-size: 9pt;
+	white-space: nowrap;
+}
+
+.fancytable-left td, .fancytable-left th {
+	text-align: left;
+}
+
+.fancytable tr:nth-child(even) {
+	background-color: #f2f2f2
+}
+
+.fancytable tr:hover {
+	background-color: #ddd;
+}
+
+.fancytable th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	background-color: #1589ff;
+	color: white;
+}
+
+.collapsible {
+	background-color: #1589ff;
+	color: white;
+	cursor: pointer;
+	padding: 6px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 16px;
+}
+
+.collapsible:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.collapsible:hover:before {
+	background-color: #ddd;
+	color: black;
+}
+
+.collapsible:before {
+	content: '\002B';
+	color: white;
+	font-weight: bold;
+	float: left;
+	margin-right: 5px;
+}
+
+.collapsiblecontent {
+	border: 1px solid #ddd;
+	padding: 0px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	white-space: nowrap;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+	background-color: white;
+}
+
+.collapsible2 {
+	background-color: #ddd;
+	color: black;
+	cursor: pointer;
+	padding: 6px 6px 6px 6px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 14px;
+}
+
+.collapsible2:hover {
+	background-color: white;
+	color: black;
+}
+
+.collapsible2:before {
+	content: '\002B';
+	color: black;
+	font-weight: bold;
+	float: left;
+	margin-right: 20px;
+}
+
+.collapsible2content {
+	padding: 0px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	white-space: nowrap;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+	background-color: white;
+	margin-left: 40;
+	margin-right: 40;
+}
+
+.collapsibleactive {
+	background-color: #ddd;
+	color: black;
+}
+
+.collapsibleactive:before {
+	content: "\2212";
+	color: black;
+}
+
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZFTS Interfaces</title>
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --accent: #58a6ff;
+      --text-color: #e6edf3;
+      --hover-bg: #1f6feb;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .link-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--text-color);
+      background-color: var(--card-bg);
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      min-width: 240px;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background-color: var(--hover-bg);
+      border-color: var(--hover-bg);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(56, 139, 253, 0.4);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.85rem;
+      color: #8b949e;
+    }
+  </style>
+</head>
+<body>
+  <h1>ZFTS Interfaces</h1>
+
+  <div class="link-container">
+    <a href="/v1">ZFTS Interface v1</a>
+    <a href="/v2">ZFTS Interface v2</a>
+    <a href="/zfts-admin">ZFTS_Admin Interface v3</a>
+  </div>
+
+  <footer>ZFTS Interface</footer>
+</body>
+</html>

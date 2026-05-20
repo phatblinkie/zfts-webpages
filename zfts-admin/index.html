@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZFTS / ZCOMPD Fleet Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<h1>ZFTS / ZCOMPD Fleet Dashboard</h1>
+
+<!-- Theme toggle -->
+<div id="topBar" class="section">
+  <div class="topBarInner">
+    <button id="themeToggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+
+    <span id="authIndicator">🔒 Not Authenticated</span>
+
+    <button id="authBtn" onclick="handleAuthClick()">Login</button>
+    <button id="changePwBtn" class="hidden" onclick="openPassword()">Change Password</button>
+  </div>
+</div>
+
+<!-- ================= AIRCRAFT DASHBOARD ================= -->
+<div id="services" class="section">
+  <h2>ZFTS Service Status</h2>
+  <table id="aircraftTable">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th><div class="tailLabel">TAIL 83</div></th>
+        <th><div class="tailLabel">TAIL 89</div></th>
+        <th><div class="tailLabel">TAIL 105</div></th>
+        <th><div class="tailLabel">TAIL 107</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Status Row -->
+      <tr>
+        <td><b>Status</b></td>
+        <td id="zfts-83_status" colspan="1"></td>
+        <td id="zfts-89_status"></td>
+        <td id="zfts-105_status"></td>
+        <td id="zfts-107_status"></td>
+      </tr>
+
+      <!-- Manage Row -->
+      <tr>
+        <td><b>Manage</b></td>
+        <td class="manageCell">
+          <button class="svc-btn" onclick="serviceAction('zfts-83','start')">Start ZFTS</button>
+          <button class="svc-btn" onclick="serviceAction('zfts-83','stop')">Stop ZFTS</button><br>
+          <button class="svc-btn" onclick="serviceAction('zcompd-83','start')">Start ZCOMPD</button>
+          <button class="svc-btn" onclick="serviceAction('zcompd-83','stop')">Stop ZCOMPD</button>
+        </td>
+        <td class="manageCell">
+          <button class="svc-btn" onclick="serviceAction('zfts-89','start')">Start ZFTS</button>
+          <button class="svc-btn" onclick="serviceAction('zfts-89','stop')">Stop ZFTS</button><br>
+          <button class="svc-btn" onclick="serviceAction('zcompd-89','start')">Start ZCOMPD</button>
+          <button class="svc-btn" onclick="serviceAction('zcompd-89','stop')">Stop ZCOMPD</button>
+        </td>
+        <td class="manageCell">
+          <button class="svc-btn" onclick="serviceAction('zfts-105','start')">Start ZFTS</button>
+          <button class="svc-btn" onclick="serviceAction('zfts-105','stop')">Stop ZFTS</button><br>
+          <button class="svc-btn" onclick="serviceAction('zcompd-105','start')">Start ZCOMPD</button>
+          <button class="svc-btn" onclick="serviceAction('zcompd-105','stop')">Stop ZCOMPD</button>
+        </td>
+        <td class="manageCell">
+          <button class="svc-btn" onclick="serviceAction('zfts-107','start')">Start ZFTS</button>
+          <button class="svc-btn" onclick="serviceAction('zfts-107','stop')">Stop ZFTS</button><br>
+          <button class="svc-btn" onclick="serviceAction('zcompd-107','start')">Start ZCOMPD</button>
+          <button class="svc-btn" onclick="serviceAction('zcompd-107','stop')">Stop ZCOMPD</button>
+        </td>
+      </tr>
+
+      <!-- Logs Row -->
+      <tr>
+        <td><b>Logs</b></td>
+        <td>
+          <button onclick="toggleLogs('zfts-83')">ZFTS Logs</button>
+          <button onclick="toggleLogs('zcompd-83')">ZCOMPD Logs</button>
+        </td>
+        <td>
+          <button onclick="toggleLogs('zfts-89')">ZFTS Logs</button>
+          <button onclick="toggleLogs('zcompd-89')">ZCOMPD Logs</button>
+        </td>
+        <td>
+          <button onclick="toggleLogs('zfts-105')">ZFTS Logs</button>
+          <button onclick="toggleLogs('zcompd-105')">ZCOMPD Logs</button>
+        </td>
+        <td>
+          <button onclick="toggleLogs('zfts-107')">ZFTS Logs</button>
+          <button onclick="toggleLogs('zcompd-107')">ZCOMPD Logs</button>
+        </td>
+      </tr>
+
+      <!-- Config Row -->
+      <tr>
+        <td><b>Configuration</b></td>
+        <td><button onclick="openConfig('zfts-83')">View Config</button></td>
+        <td><button onclick="openConfig('zfts-89')">View Config</button></td>
+        <td><button onclick="openConfig('zfts-105')">View Config</button></td>
+        <td><button onclick="openConfig('zfts-107')">View Config</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= CONFIGURATION EDITOR ================= -->
+<div id="configEditor" class="section hidden">
+  <div class="configHeader">
+    <h2>Configuration Editor</h2>
+    <button class="closeConfigBtn" onclick="toggleConfig()">✖</button>
+  </div>
+  <p>Select configuration file:</p>
+  <select id="cfgFile" onchange="loadConfigFile()"></select>
+  <button onclick="loadConfigFile()">Load</button>
+  <div id="cfgTable"></div>
+</div>
+
+<!-- ================= PASSWORD CHANGE ================= -->
+<div id="passwordSection" class="section hidden">
+  <div class="configHeader">
+    <h2>Change Password</h2>
+    <button class="closeConfigBtn" onclick="togglePassword()">✖</button>
+  </div>
+
+  <div style="max-width:400px;margin-top:10px;">
+    <input id="currentPassword" type="password" placeholder="Current Password"><br><br>
+    <input id="newPassword" type="password" placeholder="New Password"><br><br>
+    <input id="confirmPassword" type="password" placeholder="Confirm Password"><br><br>
+
+    <button onclick="changePassword()">Update Password</button>
+  </div>
+</div>
+
+<!-- ========== GLOBAL MODAL ========== -->
+<div id="globalModal" class="hidden">
+  <div class="modalInner">
+    <div id="modalText"></div>
+    <div id="modalButtons"></div>
+  </div>
+</div>
+<!-- ========== FULL FILE MODAL ========== -->
+<div id="fullFileModal" class="hidden">
+  <div id="fullFileContent">
+    <h3>Full INI File</h3>
+    <pre id="fullFileText"></pre>
+    <button onclick="closeFullModal()">Close</button>
+  </div>
+</div>
+
+<!-- ========== LOGIN MODAL ========== -->
+<div id="loginBox" class="hidden">
+  <div id="loginInner">
+    <h3>Enter Password</h3>
+    <input autocomplete="current-password" id="loginPassword" type="password">
+    <button onclick="submitLogin()">Login</button>
+  </div>
+</div>
+
+<!-- ========== GLOBAL MODAL ========== -->
+<div id="globalModal" class="hidden">
+  <div class="modalInner">
+    <div id="modalText"></div>
+    <div id="modalButtons"></div>
+  </div>
+</div>
+
+<!-- ========== LOG WINDOW TEMPLATE ========== -->
+<template id="logTemplate">
+  <div class="logWindow">
+    <div class="logHeader">
+      <span class="logTitle">Service Logs — <span class="logService"></span></span>
+      <button class="closeLog">✖</button>
+    </div>
+    <input type="text" class="logSearch" placeholder="Search…">
+    <pre class="logContent"></pre>
+    <div class="resizeHandle"></div>
+  </div>
+</template>
+</body>
+</html>
