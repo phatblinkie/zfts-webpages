@@ -237,6 +237,7 @@ body.dark .logWindow {
 body.dark .logHeader {
   background: #0d47a1;
 }
+body.dark select,
 body.dark .logContent {
   background: #111;
   border-color: #444;
