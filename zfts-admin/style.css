@@ -223,12 +223,28 @@ body.dark #topBar {
   text-align: center;
 }
 
+
+/* ---------- Dark Mode ---------- */
+
 body.dark .modalInner {
   background: #1a1a1a;
   color: #eee;
 }
+body.dark #loginInner {
+  box-shadow: 0 0 10px rgba(0,0,0,.6);
+  background:#1a1a1a;
+  color:#eee;
+}
+body.dark #loginInner input {
+  background: #222;
+  color: #eee;
+  border: 1px solid #555;
+}
 
-/* ---------- Dark Mode ---------- */
+body.dark #loginInner input::placeholder {
+  color: #aaa;
+}
+
 body.dark .logWindow {
   background: #1a1a1a;
   color: #eee;
