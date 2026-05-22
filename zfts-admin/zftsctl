@@ -1,0 +1,21 @@
+#!/bin/bash
+# zftsctl – control system-level zfts / zcompd services
+
+ACTION="$1"
+SERVICE="$2"
+
+case "$ACTION" in
+  start|stop|restart)
+    systemctl "$ACTION" "$SERVICE"
+    ;;
+  status)
+    systemctl is-active "$SERVICE"
+    ;;
+  logs)
+    journalctl -u "$SERVICE" -n 40 --no-pager
+    ;;
+  *)
+    echo "Usage: zftsctl {start|stop|status|logs} <service>"
+    exit 1
+    ;;
+esac
