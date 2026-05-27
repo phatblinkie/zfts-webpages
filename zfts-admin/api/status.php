@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$tails = ['83','89','105','107'];
+$tails = ['dops-p2','105','107'];
 $result = [];
 
 foreach ($tails as $t) {

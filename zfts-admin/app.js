@@ -11,10 +11,9 @@ let loginRequestId = 0;
 
 const logAutoTimers = {};   // service → timer handle
 const POLL_INTERVAL = 10000; // 10 seconds
-const TAILS = ["83", "89", "105", "107"];
+const TAILS = ["dops-p2", "105", "107"];
 const SERVICES = [
-  "zfts-83", "zcompd-83",
-  "zfts-89", "zcompd-89",
+  "zfts-dops-p2", "zcompd-dops-p2",
   "zfts-105","zcompd-105",
   "zfts-107","zcompd-107"
 ];
