@@ -1,0 +1,33 @@
+# /etc/systemd/system/zcompd.service
+[Unit]
+Description=Zfts transfer system
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+UMask=0022
+#User=admin
+#Group=admin
+ExecStart=/bin/bash -c 'stdbuf -oL -eL /opt/prgsnap/bin/zfts -c /usr/share/nginx/html/zfts/zfts-admin/config/zfts.configs/zfts_zcomp_gnd_dops_p2.ini 2>&1 | tee -a /var/log/zfts-dops-p2.log'
+ExecStop=/bin/kill -TERM $MAINPID
+PIDFile=/run/zcompd.pid
+WorkingDirectory=/opt/prgsnap
+Restart=on-failure
+RestartSec=5
+# Optional security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Logging
+# StandardOutput=journal
+# StandardError=journal
+
+# Pre-create log file
+ExecStartPre=/usr/bin/touch /var/log/zfts-dops-p2.log
+ExecStartPre=/usr/bin/chmod 0644 /var/log/zfts-dops-p2.log
+
+SyslogIdentifier=zfts-dops-p2
+
+[Install]
+WantedBy=default.target
